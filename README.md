@@ -20,6 +20,8 @@ PyTorch 공식 튜토리얼과 컴퓨터비전 실습 프로젝트를 기반으�
 5. CIFAR-10 CNN Classifier
 6. CIFAR-10 Improved CNN Classifier
 7. VGG-style CNN Classifier
+8. ResNet BasicBlock Classifier
+9. ResNet-18 CIFAR-10 Classifier
 
 ## 폴더 구조
 
@@ -42,9 +44,12 @@ pytorch-study/
 ├── 06_cifar10_cnn_improved/
 │   ├── cifar10_cnn_improved.py
 │   └── README.md
-├──07_vgg_style_cnn/
+├── 07_vgg_style_cnn/
 │   ├── vgg_style_cnn.py
 │   └── README.md
-└──08_resnet_basicnlock/
-    ├── resnet_basicnlock.py
+├── 08_resnet_basicblock/
+│   ├── resnet_basicblock.py
+│   └── README.md
+└── 09_resnet18_cifar10/
+    ├── resnet18_cifar10.py
     └── README.md
