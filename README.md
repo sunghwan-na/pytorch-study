@@ -42,6 +42,9 @@ pytorch-study/
 ├── 06_cifar10_cnn_improved/
 │   ├── cifar10_cnn_improved.py
 │   └── README.md
-└── 07_vgg_style_cnn/
-    ├── vgg_style_cnn.py
+├──07_vgg_style_cnn/
+│   ├── vgg_style_cnn.py
+│   └── README.md
+└──08_resnet_basicnlock/
+    ├── resnet_basicnlock.py
     └── README.md
