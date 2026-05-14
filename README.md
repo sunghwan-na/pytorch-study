@@ -9,6 +9,7 @@ PyTorch 공식 튜토리얼과 컴퓨터비전 실습 프로젝트를 기반으�
 - 딥러닝 모델 학습 흐름 이해
 - 이미지 분류 프로젝트를 통한 컴퓨터비전 기초 다지기
 - CNN 구조와 성능 개선 방법 학습
+- ResNet 구조와 Transfer Learning 흐름 이해
 - 실험 결과를 GitHub에 정리하는 습관 만들기
 
 ## 학습 순서
@@ -22,6 +23,7 @@ PyTorch 공식 튜토리얼과 컴퓨터비전 실습 프로젝트를 기반으�
 7. VGG-style CNN Classifier
 8. ResNet BasicBlock Classifier
 9. ResNet-18 CIFAR-10 Classifier
+10. Transfer Learning ResNet-18 Classifier
 
 ## 폴더 구조
 
@@ -50,6 +52,10 @@ pytorch-study/
 ├── 08_resnet_basicblock/
 │   ├── resnet_basicblock.py
 │   └── README.md
-└── 09_resnet18_cifar10/
-    ├── resnet18_cifar10.py
+├── 09_resnet18_cifar10/
+│   ├── resnet18_cifar10.py
+│   └── README.md
+└── 10_transfer_learning_resnet18/
+    ├── transfer_learning_resnet18.py
     └── README.md
+```
