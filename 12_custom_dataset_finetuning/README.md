@@ -19,7 +19,9 @@ Custom Dataset을 직접 불러오고 pretrained ResNet-18을 fine-tuning하는 
 
 ## Dataset
 
-이번 프로젝트에서는 PyTorch 튜토리얼에서 사용하는 Hymenoptera Dataset을 사용했습니다.
+이번 프로젝트에서는 PyTorch 튜토리얼에서 제공하는 Hymenoptera Dataset을 사용했습니다.
+
+Hymenoptera Dataset은 `ants`와 `bees` 두 클래스로 구성된 이미지 분류 데이터셋입니다.
 
 - Classes: ants, bees
 - Train images: 244
@@ -27,11 +29,19 @@ Custom Dataset을 직접 불러오고 pretrained ResNet-18을 fine-tuning하는 
 - Input image size: 224 × 224
 - Model: pretrained ResNet-18
 
-## Dataset Structure
+## Dataset Preparation
 
-`ImageFolder`는 폴더 이름을 기준으로 class label을 자동으로 생성합니다.
+이 프로젝트에서는 `ImageFolder` 형식의 Custom Dataset 구조를 사용했습니다.
 
-사용한 폴더 구조는 다음과 같습니다.
+데이터셋은 GitHub 저장소에 포함하지 않고, Colab에서 아래 코드를 실행하여 다운로드했습니다.
+
+```python
+!wget -q https://download.pytorch.org/tutorial/hymenoptera_data.zip
+!unzip -q hymenoptera_data.zip
+!mv hymenoptera_data dataset
+```
+
+다운로드 후 사용한 폴더 구조는 다음과 같습니다.
 
 ```text
 dataset/
@@ -43,35 +53,17 @@ dataset/
     └── bees/
 ```
 
-예를 들어 `dataset/train/ants` 폴더 안의 이미지는 `ants` 클래스로 인식되고, `dataset/train/bees` 폴더 안의 이미지는 `bees` 클래스로 인식됩니다.
+ImageFolder는 위와 같은 폴더 구조를 기준으로 클래스 이름과 label을 자동으로 생성합니다.
 
-## Dataset Download
+예를 들어 `dataset/train/ants` 폴더 안의 이미지는 `ants` 클래스로 인식됩니다.
 
-Colab에서 다음 코드를 사용하여 예제 데이터셋을 다운로드했습니다.
+그리고 `dataset/train/bees` 폴더 안의 이미지는 `bees` 클래스로 인식됩니다.
 
-```python
-!wget -q https://download.pytorch.org/tutorial/hymenoptera_data.zip
-!unzip -q hymenoptera_data.zip
-!mv hymenoptera_data dataset
-```
-
-폴더 구조 확인:
-
-```python
-!find dataset -maxdepth 2 -type d
-```
-
-정상적인 구조는 다음과 같습니다.
-
+이번 데이터셋에서는 다음과 같이 label이 생성되었습니다.
 ```text
-dataset
-dataset/train
-dataset/train/ants
-dataset/train/bees
-dataset/val
-dataset/val/ants
-dataset/val/bees
+{'ants': 0, 'bees': 1}
 ```
+즉, ants는 label 0, bees는 label 1로 변환됩니다.
 
 ## Transform
 
