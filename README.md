@@ -2,7 +2,7 @@
 
 PyTorch 공식 튜토리얼과 컴퓨터비전 실습 프로젝트를 기반으로 기초 개념과 모델 학습 흐름을 정리하는 저장소입니다.
 
-단순히 코드를 실행하는 것에서 끝내지 않고, 각 프로젝트별 핵심 개념과 실험 결과를 정리하며 컴퓨터비전 이미지 분류의 기본 흐름을 학습하는 것을 목표로 합니다.
+단순히 코드를 실행하는 것에서 끝내지 않고, 각 프로젝트별 핵심 개념과 실험 결과를 정리하며 컴퓨터비전 이미지 분류와 객체 탐지의 기본 흐름을 학습하는 것을 목표로 합니다.
 
 ## 학습 목표
 
@@ -17,6 +17,8 @@ PyTorch 공식 튜토리얼과 컴퓨터비전 실습 프로젝트를 기반으�
 - Pretrained Model과 Transfer Learning 흐름 이해
 - Fine-tuning 방식 이해
 - Custom Dataset과 ImageFolder 사용법 학습
+- Object Detection 기본 개념 이해
+- pretrained Faster R-CNN을 활용한 객체 탐지 실습
 - 실험 결과를 GitHub에 정리하는 습관 만들기
 
 ## 학습 순서
@@ -33,6 +35,7 @@ PyTorch 공식 튜토리얼과 컴퓨터비전 실습 프로젝트를 기반으�
 10. Transfer Learning ResNet-18 Classifier
 11. Fine-tuning ResNet-18 Classifier
 12. Custom Dataset Fine-tuning Classifier
+13. Object Detection Basic
 
 ## 폴더 구조
 
@@ -70,8 +73,11 @@ pytorch-study/
 ├── 11_finetuning_resnet18/
 │   ├── finetuning_resnet18.py
 │   └── README.md
-└── 12_custom_dataset_finetuning/
-    ├── custom_dataset_finetuning.py
+├── 12_custom_dataset_finetuning/
+│   ├── custom_dataset_finetuning.py
+│   └── README.md
+└── 13_object_detection_basic/
+    ├── object_detection_basic.py
     └── README.md
 ```
 
@@ -195,7 +201,21 @@ CIFAR-10처럼 제공되는 데이터셋이 아니라, `dataset/train`, `dataset
 - Avg Loss: 0.264598
 - 학습 목표: Custom Dataset과 ImageFolder 사용법 이해
 
-## 프로젝트 성능 비교
+### 10. Object Detection Basic
+
+torchvision에서 제공하는 pretrained Faster R-CNN 모델을 사용하여 이미지 한 장에서 객체를 탐지하고 bounding box를 시각화한 프로젝트입니다.
+
+이미지 분류처럼 이미지 전체를 하나의 클래스로 예측하는 것이 아니라, 이미지 안의 객체 위치와 클래스, 신뢰도를 함께 예측하는 Object Detection의 기본 흐름을 학습했습니다.
+
+- Task: Object Detection
+- Model: Pretrained Faster R-CNN ResNet50 FPN
+- Dataset / Input: sample dog image
+- Output: boxes, labels, scores
+- Threshold: 0.7
+- Main Detection Result: dog, score 0.9669
+- 학습 목표: bounding box, class label, confidence score, threshold, 시각화 이해
+
+## 이미지 분류 프로젝트 성능 비교
 
 | Project | Dataset | Model | Method | Accuracy | Avg Loss |
 |---|---|---|---|---:|---:|
@@ -208,6 +228,12 @@ CIFAR-10처럼 제공되는 데이터셋이 아니라, `dataset/train`, `dataset
 | Transfer Learning ResNet-18 | CIFAR-10 | Pretrained ResNet-18 | Feature Extractor | 79.6% | 0.615041 |
 | Fine-tuning ResNet-18 | CIFAR-10 | Pretrained ResNet-18 | Fine-tuning | 90.8% | 0.266824 |
 | Custom Dataset Fine-tuning | Hymenoptera | Pretrained ResNet-18 | Fine-tuning | 88.9% | 0.264598 |
+
+## Object Detection 실험 결과
+
+| Project | Model | Input | Main Detection | Score | Threshold |
+|---|---|---|---|---:|---:|
+| Object Detection Basic | Pretrained Faster R-CNN ResNet50 FPN | sample dog image | dog | 0.9669 | 0.7 |
 
 ## 핵심 학습 내용
 
@@ -228,6 +254,10 @@ CIFAR-10처럼 제공되는 데이터셋이 아니라, `dataset/train`, `dataset
 
 - Conv2d
 - Feature Map
+- Channel
+- Kernel / Filter
+- Padding
+- Stride
 - ReLU
 - MaxPool2d
 - Flatten
@@ -272,6 +302,22 @@ CIFAR-10처럼 제공되는 데이터셋이 아니라, `dataset/train`, `dataset
 - num_classes = len(class_names)
 - Custom Dataset에 맞는 fc layer 수정
 
+### Object Detection
+
+- Image Classification과 Object Detection의 차이
+- Bounding Box
+- box 좌표 `[x1, y1, x2, y2]`
+- labels
+- scores
+- threshold
+- COCO class names
+- Faster R-CNN
+- backbone
+- `prediction[0]["boxes"]`
+- `prediction[0]["labels"]`
+- `prediction[0]["scores"]`
+- bounding box 시각화
+
 ## 학습 흐름 요약
 
 ```text
@@ -285,23 +331,25 @@ PyTorch 기초 개념 정리
 → pretrained ResNet-18을 활용한 Transfer Learning 실습
 → layer4 + fc를 학습하는 Fine-tuning 실습
 → ImageFolder를 사용한 Custom Dataset Fine-tuning 실습
+→ pretrained Faster R-CNN을 사용한 Object Detection 기초 실습
 ```
 
 ## 정리
 
-이 저장소는 PyTorch와 컴퓨터비전 이미지 분류의 기본 흐름을 단계적으로 학습한 기록입니다.
+이 저장소는 PyTorch와 컴퓨터비전의 기본 흐름을 단계적으로 학습한 기록입니다.
 
 초기에는 FashionMNIST와 CIFAR-10을 사용하여 기본 학습 흐름과 CNN 구조를 익혔고, 이후 VGG-style CNN과 ResNet 구조를 직접 구현하며 깊은 CNN 모델의 구조를 학습했습니다.
 
-그다음 pretrained ResNet-18을 활용하여 Transfer Learning과 Fine-tuning을 실습했고, 마지막으로 ImageFolder를 사용하여 Custom Dataset을 직접 불러와 fine-tuning하는 프로젝트를 진행했습니다.
+그다음 pretrained ResNet-18을 활용하여 Transfer Learning과 Fine-tuning을 실습했고, ImageFolder를 사용하여 Custom Dataset을 직접 불러와 fine-tuning하는 프로젝트를 진행했습니다.
 
-이를 통해 단순한 이미지 분류 모델 구현에서 시작해, 실제 프로젝트에 가까운 Custom Dataset 학습 흐름까지 경험했습니다.
+마지막으로 pretrained Faster R-CNN을 사용하여 Object Detection의 기본 출력인 boxes, labels, scores를 확인하고, threshold를 적용한 뒤 bounding box를 이미지 위에 시각화했습니다.
+
+이를 통해 단순한 이미지 분류 모델 구현에서 시작해, 실제 프로젝트에 가까운 Custom Dataset 학습과 Object Detection 기초 흐름까지 경험했습니다.
 
 ## 다음 학습 계획
 
-- Object Detection 기초 실습
-- Bounding Box 개념 학습
-- pretrained detection model 사용
-- Faster R-CNN 또는 YOLO 기초 실습
-- Image Segmentation 기초 학습
-- 논문 구조 따라 구현하기
+- ResNet 논문 구현 시작
+- Residual Learning 개념 정리
+- ResNet 논문 구조와 직접 구현한 코드 비교
+- 논문 구현 프로젝트 정리
+- 이후 Object Detection 또는 Image Segmentation 논문으로 확장
